@@ -41,7 +41,7 @@ public class SecurityService {
 
     private final String baseUrl = "localhost:8080/auth/verification?token=";
 
-    public ResponseEntity<?> register(RegisterRequest registerRequest) throws MessagingException {
+    public String register(RegisterRequest registerRequest) throws MessagingException {
         Optional<User> userOptional = userRepository.findByEmail(registerRequest.getEmail());
         if (userOptional.isPresent()){
             throw new UserAlreadyExists("Username Exists");
@@ -62,7 +62,7 @@ public class SecurityService {
         tokenRepository.save(token);
         String confirmationUrl = baseUrl.concat(token.getToken());
         emailService.sendEmail(registerRequest.getEmail(),"Confirmation", "hbuhero@gmail.com", token.getToken(), confirmationUrl);
-        return new ResponseEntity<>("Registered successfully. Token: "+token.getToken(), HttpStatusCode.valueOf(200));
+        return "Registered successfully. Token: " + token.getToken();
     }
 
 

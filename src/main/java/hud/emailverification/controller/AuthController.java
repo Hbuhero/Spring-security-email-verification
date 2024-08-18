@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+
 public class AuthController {
 
     private final SecurityService securityService;
@@ -18,7 +19,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) throws MessagingException {
+    public String register(@RequestBody RegisterRequest registerRequest) throws MessagingException {
         return securityService.register(registerRequest);
     }
 
